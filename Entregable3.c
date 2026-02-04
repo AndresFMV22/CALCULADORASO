@@ -3,7 +3,7 @@
 #include <string.h> // Manejo de cadenas (strcmp, strlen, strchr)
 #include <math.h>   // Funciones matemáticas (sin, cos, tan)
 
-#define MAX 8 // Tamaño máximo de la pila (8 niveles tipo HP)
+#define MAX 8 //  Tamaño máximo de la pila (8 niveles tipo HP)
 
 /*
     Arreglo que representa la pila de la calculadora RPN.
