@@ -1,14 +1,27 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
+#include <stdio.h>  // Entrada y salida estándar (printf, scanf)
+#include <stdlib.h> // Funciones generales (exit)
+#include <string.h> // Manejo de cadenas (strcmp, strlen, strchr)
+#include <math.h>   // Funciones matemáticas (sin, cos, tan)
 
-#define MAX 8
+#define MAX 8 // Tamaño máximo de la pila (8 niveles tipo HP)
 
+/*
+    Arreglo que representa la pila de la calculadora RPN.
+    Cada posición almacena un valor flotante.
+*/
 float stack[MAX];
+
+/*
+    Variable que indica la cima de la pila.
+    -1 indica que la pila está vacía.
+*/
 int top = -1;
 
-/* Mostrar pila */
+/*
+    Función que muestra la pila completa en pantalla.
+    Se imprimen siempre los 8 niveles, aunque estén vacíos,
+    para simular el comportamiento de una calculadora HP.
+*/
 void mostrar_pila()
 {
     printf("\n");
@@ -22,7 +35,11 @@ void mostrar_pila()
     printf("\n");
 }
 
-/* Push */
+/*
+    Función push:
+    Inserta un valor en la cima de la pila.
+    Valida que no se exceda el tamaño máximo.
+*/
 void push(float value)
 {
     if (top < MAX - 1)
@@ -31,11 +48,16 @@ void push(float value)
     }
     else
     {
+        // Error si la pila está llena
         printf("Math Error\n");
     }
 }
 
-/* Pop */
+/*
+    Función pop:
+    Extrae el valor de la cima de la pila.
+    Retorna 1 si fue exitoso y 0 si la pila está vacía.
+*/
 int pop(float *value)
 {
     if (top >= 0)
@@ -45,19 +67,24 @@ int pop(float *value)
     }
     else
     {
+        // Error si se intenta sacar de una pila vacía
         printf("Math Error\n");
         return 0;
     }
 }
 
-/* Limpiar último */
+/*
+    Elimina únicamente el último valor ingresado en la pila.
+*/
 void clear_last()
 {
     if (top >= 0)
         top--;
 }
 
-/* Limpiar todo */
+/*
+    Limpia completamente la pila.
+*/
 void clear_all()
 {
     top = -1;
@@ -65,16 +92,24 @@ void clear_all()
 
 int main()
 {
-    int opcion;
-    float a, b, result;
-    char op[10];
+    int opcion;   // Opción del menú
+    float a, b;   // Operandos
+    float result; // Resultado de la operación
+    char op[10];  // Operador o función ingresada
 
     printf("Calculadora RPN estilo HP\n");
 
+    /*
+        Bucle principal del programa.
+        Permite interacción continua hasta que el usuario decida salir.
+    */
     while (1)
     {
+
+        // Mostrar el estado actual de la pila
         mostrar_pila();
 
+        // Menú de opciones
         printf("¿Qué desea hacer?\n");
         printf("1. Ingresar número\n");
         printf("2. Seleccionar operación\n");
@@ -86,22 +121,30 @@ int main()
 
         switch (opcion)
         {
+
+        // Opción para ingresar un número a la pila
         case 1:
             printf("Ingrese número: ");
             scanf("%f", &a);
             push(a);
             break;
 
+        // Opción para seleccionar una operación
         case 2:
             printf("Operación (+ - * / sin cos tan): ");
             scanf("%s", op);
 
-            /* Operadores binarios */
+            /*
+                Operaciones binarias:
+                Requieren dos operandos de la pila.
+            */
             if (strlen(op) == 1 && strchr("+-*/", op[0]))
             {
+
                 if (!pop(&b) || !pop(&a))
                     break;
 
+                // Validación de división por cero
                 if (op[0] == '/' && b == 0)
                 {
                     printf("Math Error\n");
@@ -110,6 +153,7 @@ int main()
                     break;
                 }
 
+                // Ejecución de la operación
                 switch (op[0])
                 {
                 case '+':
@@ -125,14 +169,21 @@ int main()
                     result = a / b;
                     break;
                 }
+
+                // Se guarda el resultado en la pila
                 push(result);
             }
-            /* Trigonométricas */
+
+            /*
+                Funciones trigonométricas:
+                Requieren un solo operando.
+            */
             else if (
                 strcmp(op, "sin") == 0 ||
                 strcmp(op, "cos") == 0 ||
                 strcmp(op, "tan") == 0)
             {
+
                 if (!pop(&a))
                     break;
 
@@ -151,14 +202,17 @@ int main()
             }
             break;
 
+        // Elimina el último valor ingresado
         case 3:
             clear_last();
             break;
 
+        // Limpia toda la pila
         case 4:
             clear_all();
             break;
 
+        // Finaliza el programa
         case 5:
             return 0;
 
