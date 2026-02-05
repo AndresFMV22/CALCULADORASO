@@ -6,7 +6,7 @@
 #define MAX 8 //  Tamaño máximo de la pila (8 niveles)
 
 /*
-    Aca ponermo un arreglo que representa la pila de la calculadora RPN.
+    Aca ponemos un arreglo que representa la pila de la calculadora RPN.
     Cada posición almacena un valor.
 */
 float stack[MAX];
