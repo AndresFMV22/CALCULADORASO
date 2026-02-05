@@ -3,22 +3,22 @@
 #include <string.h> // Manejo de cadenas (strcmp, strlen, strchr)
 #include <math.h>   // Funciones matemáticas (sin, cos, tan)
 
-#define MAX 8 //  Tamaño máximo de la pila (8 niveles tipo HP)
+#define MAX 8 //  Tamaño máximo de la pila (8 niveles)
 
 /*
-    Arreglo que representa la pila de la calculadora RPN.
-    Cada posición almacena un valor flotante.
+    Aca ponermo un arreglo que representa la pila de la calculadora RPN.
+    Cada posición almacena un valor.
 */
 float stack[MAX];
 
 /*
-    Variable que indica la cima de la pila.
+    Aca tenemos la variable que indica la cima de la pila.
     -1 indica que la pila está vacía.
 */
 int top = -1;
 
 /*
-    Función que muestra la pila completa en pantalla.
+    Aca tenemos la funcion que muestra la pila completa en la terminal.
     Se imprimen siempre los 8 niveles, aunque estén vacíos,
     para simular el comportamiento de una calculadora HP.
 */
@@ -48,7 +48,7 @@ void push(float value)
     }
     else
     {
-        // Error si la pila está llena
+        // Error si la pila ya está llena
         printf("Math Error\n");
     }
 }
@@ -100,7 +100,7 @@ int main()
     printf("Calculadora RPN estilo HP\n");
 
     /*
-        Bucle principal del programa.
+        Aca tenemos el bucle principal del programa.
         Permite interacción continua hasta que el usuario decida salir.
     */
     while (1)
